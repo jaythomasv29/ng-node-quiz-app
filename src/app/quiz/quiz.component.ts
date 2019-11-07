@@ -1,3 +1,4 @@
+import { QuizService } from './../shared/quiz.service';
 import { NavbarComponent } from './../navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
@@ -17,8 +18,10 @@ export class QuizComponent implements OnInit {
   state
   seconds;
   timer;
-  questions
-  questionProgress: number; //number of questions answered
+  questions: any[];
+  options: any[];
+  questionProgress: number = 0; //number of questions answered
+  // correct: any[];
   userAnswerArr = []
   userAnswer = ""
   score: number = 0
@@ -28,14 +31,13 @@ export class QuizComponent implements OnInit {
   showResults: boolean = false;
 
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder, private _quizService: QuizService) {
     this.questionProgress = 0
     this.state = this.router.getCurrentNavigation().extras.state
     this.Name = this.router.getCurrentNavigation().extras.state.name;
     this.questions = this.state.response.question;
-    // this.questions.forEach(element => {
-    //   console.log(`Q: ${element}`)
-    // });
+    this.options = this.state.response.options
+
   }
 
 
@@ -57,22 +59,24 @@ export class QuizComponent implements OnInit {
       this.quizForm.controls['option'].reset()
       this.userAnswer = ''
       console.log(this.userAnswer)
-      console.log(this.userAnswerArr)
+      // console.log(this.userAnswerArr)
       this.questionProgress++;
 
     }
   }
-  // submit() {
+  submit() {
+    console.log(this.userAnswerArr)
 
-  //   this.score = 0;
-  //   for (let i = 0; i< this.userAnswerArr.length; i++){
-  //     if(this.userAnswerArr[i] === this.correctAnswer[i])
-  //     this.score++
-  //   }
-  //   console.log(this.score)
-  //   this.showResults = true
+    try {
+      this._quizService.getResults(this.userAnswerArr).then((score) => {
+        console.log('score from quiz component', JSON.stringify(score))
+      })
+    } catch (error) {
+      console.error(error)
+    }
+    console.log('reached submit method')
 
-  // }
+  }
 
   newQuiz() {
     this.router.navigate(['/select'],
