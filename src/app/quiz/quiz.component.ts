@@ -13,6 +13,7 @@ import shuffle from 'shuffle-array'
 export class QuizComponent implements OnInit {
   //Quiz Component Properties
   quizForm: FormGroup;
+  //timer
   
   seconds;
   timer;

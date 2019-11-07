@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms'
 })
 export class SelectComponent implements OnInit {
   Name
-  difficulty: any //works with [(ngModel on html select tag)]
   category: any;
 
   constructor(private _quizService: QuizService, private router: Router) {
@@ -21,7 +20,7 @@ export class SelectComponent implements OnInit {
   }
 
   onSubmitForm() {
-    this._quizService.getQuestion(this.difficulty, this.category).subscribe((response) => {
+    this._quizService.getQuestion(this.category).subscribe((response) => {
       console.log(response)
 
       this.router.navigate(['/quiz'],
@@ -30,9 +29,7 @@ export class SelectComponent implements OnInit {
           {
             name: this.Name,
             category: this.category,
-            difficulty: this.difficulty,
             response: response
-            
           }
         });
     })
