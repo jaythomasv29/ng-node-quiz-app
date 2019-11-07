@@ -15,8 +15,8 @@ export class RegisterComponent implements OnInit {
   
   error: string;
   loginForm :FormGroup
-  result:boolean = true;
- 
+  //result:boolean = true;
+   result:any;
 
 
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
