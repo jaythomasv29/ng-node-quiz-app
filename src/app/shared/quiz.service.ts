@@ -11,17 +11,17 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class QuizService {
-    
+
     url;
     constructor(private http: HttpClient) {
-        this.url='http://localhost:5000'
+        this.url = 'http://localhost:5000/quiz'
     }
-//getQuestion method
-getQuestion(category) {
-  
-    return this.http.get(`${this.url}?category=${category}`,
-    
-    )
-}
+    //getQuestion method
+    getQuestion(category) {
+
+        return this.http.get(`${this.url}?category=${category}`
+
+        )
+    }
 
 }

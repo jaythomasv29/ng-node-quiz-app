@@ -3,7 +3,9 @@
 <!-- MODEL DRIVEN FORM IN QUIZ -->
 <div class="row">
     <form class="col s6 offset-s3" [formGroup]="quizForm">
-        <div class="card">
+        <div class="card" *ngIf="questions.length != 0">
+            <!-- <h1>{{questions[0]}}</h1> -->
+            
             <div class="col s12" *ngIf="questions[questionProgress]">
                 <span class="center-align">Question# {{questionProgress+1}}</span>
                 <!-- Display the question starting at index of 0 -->

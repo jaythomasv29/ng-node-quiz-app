@@ -15,13 +15,13 @@ export class SelectComponent implements OnInit {
 
   constructor(private _quizService: QuizService, private router: Router) {
     this.Name = this.router.getCurrentNavigation().extras.state.name;
+    this._quizService.getQuestion(1).subscribe((response) => { console.log("API CALL: ", response) })
   }
   ngOnInit() {
   }
 
   onSubmitForm() {
     this._quizService.getQuestion(this.category).subscribe((response) => {
-      console.log(response)
 
       this.router.navigate(['/quiz'],
         {

@@ -14,14 +14,14 @@ export class QuizComponent implements OnInit {
   //Quiz Component Properties
   quizForm: FormGroup;
   //timer
-  
+  state
   seconds;
   timer;
-  
-  questionProgress: number = 0; //number of questions answered
+  questions
+  questionProgress: number; //number of questions answered
   userAnswerArr = []
   userAnswer = ""
-  score:number = 0
+  score: number = 0
   Name
   category
   difficulty
@@ -29,26 +29,30 @@ export class QuizComponent implements OnInit {
 
 
   constructor(private router: Router, private fb: FormBuilder) {
-    let user = this.router.getCurrentNavigation().extras.state
+    this.questionProgress = 0
+    this.state = this.router.getCurrentNavigation().extras.state
     this.Name = this.router.getCurrentNavigation().extras.state.name;
-    
-
+    this.questions = this.state.response.question;
+    // this.questions.forEach(element => {
+    //   console.log(`Q: ${element}`)
+    // });
   }
 
 
-//timer function
-  startTimer() { 
-    this.timer = setInterval(()=> {
+
+  //timer function
+  startTimer() {
+    this.timer = setInterval(() => {
       this.seconds++
     }, 1000)
   }
- 
-  nextQuestion(){
-    if(this.questionProgress <= 9){
+
+  nextQuestion() {
+    if (this.questionProgress <= 9) {
       console.log(this.questionProgress)
       this.userAnswer = this.quizForm.controls['option'].value
       console.log(this.userAnswer)
-      
+
       this.userAnswerArr[this.questionProgress] = this.userAnswer
       this.quizForm.controls['option'].reset()
       this.userAnswer = ''
@@ -56,12 +60,10 @@ export class QuizComponent implements OnInit {
       console.log(this.userAnswerArr)
       this.questionProgress++;
 
-    } else {
-      
     }
   }
   // submit() {
-    
+
   //   this.score = 0;
   //   for (let i = 0; i< this.userAnswerArr.length; i++){
   //     if(this.userAnswerArr[i] === this.correctAnswer[i])
@@ -72,25 +74,25 @@ export class QuizComponent implements OnInit {
 
   // }
 
-  newQuiz(){
+  newQuiz() {
     this.router.navigate(['/select'],
+      {
+        state:
         {
-          state:
-          {
-            name: this.Name,
-            category: this.category,
-            difficulty: this.difficulty
-            
-          }
-        });
-        console.log(this.Name)
+          name: this.Name,
+          category: this.category
+          // difficulty: this.difficulty
+
+        }
+      });
+    // console.log(this.Name)
   }
 
-  previousQuestion(){
-    if(this.questionProgress > 0){
-    this.questionProgress--;
+  previousQuestion() {
+    if (this.questionProgress > 0) {
+      this.questionProgress--;
 
-  }
+    }
 
     console.log(this.userAnswerArr)
   }
@@ -99,7 +101,9 @@ export class QuizComponent implements OnInit {
     this.quizForm = this.fb.group({
       option: new FormControl()
     })
-    
+
+    // console.log(this.questions)
+    console.log(this.questionProgress)
   }
 
 }
