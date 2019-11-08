@@ -12,9 +12,9 @@
                     <div class="col s12">
                         <h3 *ngIf="score < 5 "class="center-align">Better luck next time {{Name}}</h3>
                             <h3 *ngIf="score > 5 "class="center-align">Very Impressive {{Name}}</h3>
-                        <h6 class="center-align" *ngIf="score">Correct: {{score}}</h6>
-                        <h6 class="center-align" *ngIf="score">Incorrect: {{10 - score}}</h6>
-                        <h6 class="center-align" *ngIf="score">Percentage: {{score / 10 * 100}}</h6>
+                        <h6 class="center-align" >Correct: {{score}}</h6>
+                        <h6 class="center-align" >Incorrect: {{10 - score}}</h6>
+                        <h6 class="center-align" >Percentage: {{score / 10 * 100}}</h6>
                     </div>
                 </div>
             </div>
@@ -24,10 +24,7 @@
                 type="submit">Retry
                 <i class="material-icons right">send</i>
             </button>
-            <button  (click)="logout()" class="btn-large btn-submit"
-                type="submit">Logout
-                <i class="material-icons right">send</i>
-            </button>
+
         </div>
     </div>
 </div>
