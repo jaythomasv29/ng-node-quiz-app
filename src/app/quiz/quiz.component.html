@@ -1,12 +1,13 @@
 <meta charset="utf-8">
 <app-navbar></app-navbar>
 <!-- MODEL DRIVEN FORM IN QUIZ -->
+<div class="row"></div>
 <div class="row">
     <div *ngIf="questions.length==0">
         Loading data...!
     </div>
     <div *ngIf="questions.length != 0">
-        Loaded
+   
         <!-- <h1>{{questionProgress}}</h1> -->
         <form class="col s6 offset-s3" [formGroup]="quizForm">
 
@@ -31,6 +32,7 @@
                         (click)="nextQuestion()" class="btn-large btn-submit" type="submit">Next</button>
                 </div>
             </div>
+            <div class="row"></div>
             <div class="row" *ngIf="questionProgress > 9 ">
                 <h4 class="center-align">Quiz Complete!</h4>
                 <button  (click)="submit()" class="btn-large btn-submit"
