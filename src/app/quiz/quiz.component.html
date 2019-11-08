@@ -12,7 +12,7 @@
 
             <div class="card" *ngIf="questions[questionProgress]">
                 <div class="col s12">
-                    <h4 class="center-align">{{ questions[questionProgress] }}</h4>
+                    <h4 class="center-align" [innerHTML]=" questions[questionProgress]"></h4>
                 </div>
 
                 <div class="card-content">
@@ -21,7 +21,7 @@
                             <label for="{{choice}}">
                                 <input id="{{choice}}" formControlName="option" value="{{choice}}" type="radio"
                                     required="required" />
-                                <span>{{choice}}</span>
+                                <span [innerHTML]="choice">}</span>
                             </label>
                         </div>
                     </div>
