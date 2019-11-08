@@ -70,11 +70,13 @@ export class QuizComponent implements OnInit {
     try {
       this._quizService.getResults(this.userAnswerArr).then((score) => {
         console.log('score from quiz component', JSON.stringify(score))
-      })
+
+      });
     } catch (error) {
       console.error(error)
     }
     console.log('reached submit method')
+    this.router.navigate(['/result'], { state: {name: this.Name, category:this.category, score:this.score}});
 
   }
 
