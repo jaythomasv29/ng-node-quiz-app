@@ -29,12 +29,16 @@ export class QuizComponent implements OnInit {
   category
   difficulty
   showResults: boolean = false;
+  result
 
 
   constructor(private router: Router, private fb: FormBuilder, private _quizService: QuizService) {
     this.questionProgress = 0
+    //set values from select component using states
     this.state = this.router.getCurrentNavigation().extras.state
     this.Name = this.router.getCurrentNavigation().extras.state.name;
+    this.category = this.router.getCurrentNavigation().extras.state.category;
+    //set values from api request 
     this.questions = this.state.response.question;
     this.options = this.state.response.options
 
@@ -70,13 +74,13 @@ export class QuizComponent implements OnInit {
     try {
       this._quizService.getResults(this.userAnswerArr).then((score) => {
         console.log('score from quiz component', JSON.stringify(score))
-
+        this.result = Number(JSON.stringify(score))
+        this.router.navigate(['/result'], { state: { name: this.Name, category: this.category, score: this.result } });
       });
     } catch (error) {
       console.error(error)
     }
     console.log('reached submit method')
-    this.router.navigate(['/result'], { state: {name: this.Name, category:this.category, score:this.score}});
 
   }
 
