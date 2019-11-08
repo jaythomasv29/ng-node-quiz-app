@@ -12,9 +12,9 @@
         <!-- <img src="src/assets/img/logo.png" style="width:250px;height:250px;" class="offset-s3"> -->
       </div>
       <div class="card-content">
-        <form #registerForm="ngForm" autocomplete="off" id="register" (ngSubmit)="onSubmit(registerForm.value)" autocomplete="off">
+        <form #registerForm="ngForm" autocomplete="off" id="register" (ngSubmit)="onSubmit(registerForm.value)">
           <div class="row">
-            <span *ngIf="isValid">Username or Password Incorrect, Try Again</span>
+            <span *ngIf="!isValid">Username or Password Incorrect, Try Again</span>
             <div class="input-field col s12">
               <i class="material-icons prefix">account_circle</i>
               <input autocomplete="false" name="hidden" type="text" style="display:none;">

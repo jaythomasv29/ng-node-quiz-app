@@ -7,26 +7,25 @@ import { Router } from "@angular/router";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-Name
+  Name: string;
+  isLoggedIn: boolean;
 
-  constructor(private router: Router) { 
-    if (this.router.getCurrentNavigation().extras.state != null){
-      this.Name = this.router.getCurrentNavigation().extras.state.name;
-
-      
+  constructor(private router: Router) {
+    if (history.state.data != undefined) {
+      this.Name = history.state.data.name
+      this.isLoggedIn = history.state.data.isLoggedIn
+    } else {
+      this.Name = undefined
+      this.isLoggedIn = undefined
     }
-
+    console.log("NAVBAR COMPONENT: ", this.Name, this.isLoggedIn)
 
   }
-    
+
   ngOnInit() {
-    console.log(this.Name)
   }
-  
-  
-  
 
-  signOut(){
+  signOut() {
     this.router.navigate(['/register']);
   }
 

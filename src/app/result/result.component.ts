@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { NavbarComponent } from './../navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,14 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-  Name
-  category
+  Name: string;
+  category: Number;
   score
 
   constructor(private router: Router) {
-    this.Name = this.router.getCurrentNavigation().extras.state.name;
-    this.category = this.router.getCurrentNavigation().extras.state.category;
-    this.score = this.router.getCurrentNavigation().extras.state.score;
+    this.Name = history.state.data.name
+    this.category = history.state.data.category
+    this.score = history.state.data.score
+    console.log("HISTORY STATE:", history.state.data)
     console.log(this.score)
   }
 

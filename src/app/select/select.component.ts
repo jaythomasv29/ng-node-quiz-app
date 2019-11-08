@@ -10,29 +10,33 @@ import { FormsModule } from '@angular/forms'
   styleUrls: ['./select.component.css']
 })
 export class SelectComponent implements OnInit {
-  Name
+  Name: string;
   category: any;
+  isLoggedIn: boolean;
 
   constructor(private _quizService: QuizService, private router: Router) {
-    this.Name = this.router.getCurrentNavigation().extras.state.name;
-    this._quizService.getQuestion(1).subscribe((response) => { console.log("API CALL: ", response) })
+    this.Name = history.state.data.name
+    this.isLoggedIn = history.state.data.isLoggedIn
+    console.log("SELECT COMPONENT: ", this.Name, this.isLoggedIn)
   }
   ngOnInit() {
   }
 
   onSubmitForm() {
-    this._quizService.getQuestion(this.category).subscribe((response) => {
-
-      this.router.navigate(['/quiz'],
-        {
-          state:
-          {
-            name: this.Name,
-            category: this.category,
-            response: response
-          }
-        });
-    })
+    try {
+      this._quizService.getQuestion(this.category).subscribe((response) => {
+        let data = {
+          name: this.Name,
+          isLoggedIn: this.isLoggedIn,
+          category: this.category,
+          response: response
+        }
+        this.router.navigate(['/quiz'], { state: { data: data } });
+      })
+    } catch (error) {
+      console.error(error)
+      throw (error)
+    }
 
   }
 

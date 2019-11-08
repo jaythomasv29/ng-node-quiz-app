@@ -29,22 +29,20 @@ export class QuizComponent implements OnInit {
   category
   difficulty
   showResults: boolean = false;
-  result
+  isLoggedIn: boolean;
 
 
   constructor(private router: Router, private fb: FormBuilder, private _quizService: QuizService) {
     this.questionProgress = 0
     //set values from select component using states
-    this.state = this.router.getCurrentNavigation().extras.state
-    this.Name = this.router.getCurrentNavigation().extras.state.name;
-    this.category = this.router.getCurrentNavigation().extras.state.category;
+    this.state = history.state.data
+    this.Name = this.state.name
+    this.category = this.state.category;
+    this.isLoggedIn = history.state.data.isLoggedIn;
     //set values from api request 
     this.questions = this.state.response.question;
     this.options = this.state.response.options
-
   }
-
-
 
   //timer function
   startTimer() {
@@ -74,8 +72,9 @@ export class QuizComponent implements OnInit {
     try {
       this._quizService.getResults(this.userAnswerArr).then((score) => {
         console.log('score from quiz component', JSON.stringify(score))
-        this.result = Number(JSON.stringify(score))
-        this.router.navigate(['/result'], { state: { name: this.Name, category: this.category, score: this.result } });
+        this.score = Number(JSON.stringify(score))
+        let stateData = { name: this.Name, category: this.category, score: this.score, isLoggedIn: this.isLoggedIn }
+        this.router.navigate(['/result'], { state: { data: stateData } });
       });
     } catch (error) {
       console.error(error)
@@ -87,15 +86,8 @@ export class QuizComponent implements OnInit {
   newQuiz() {
     this.router.navigate(['/select'],
       {
-        state:
-        {
-          name: this.Name,
-          category: this.category
-          // difficulty: this.difficulty
-
-        }
+        state: { data: { name: this.Name, category: this.category, isLoggedIn: this.isLoggedIn } }
       });
-    // console.log(this.Name)
   }
 
   previousQuestion() {
